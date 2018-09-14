@@ -1,0 +1,74 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_mobile_table
+      author: ankit_kamboj
+      changes:
+        - createTable:
+            tableName: mobile
+            columns:
+              - column:
+                  name: mobile_id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cost
+                  type: bigint
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: create_person_table
+      author: ankit_kamboj
+      changes:
+        - createTable:
+            tableName: person
+            columns:
+              - column:
+                  name: person_id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: create_person_mobile_table
+      author: ankit_kamboj
+      changes:
+        - createTable:
+            tableName: person_mobile
+            columns:
+              - column:
+                  name: person_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: mobile_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: person_id
+            baseTableName: person_mobile
+            constraintName: fk_person_id
+            referencedColumnNames: person_id
+            referencedTableName: person
+        - addForeignKeyConstraint:
+            baseColumnNames: mobile_id
+            baseTableName: person_mobile
+            constraintName: fk_mobile_id
+            referencedColumnNames: mobile_id
+            referencedTableName: mobile
